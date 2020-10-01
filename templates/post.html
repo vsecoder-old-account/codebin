@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>
+      <div class="spinner-grow" role="status">
+        <span class="sr-only">vsevolodhtml</span>
+      </div>
+      {% block title %} {{ post['title'] }} {% endblock %}
+    </h2>
+    <hr>
+    <div style="text-align: right;">
+      <a href="{{ url_for('raw', post_id=post['id']) }}">
+        <span class="btn btn-info">RAW</span>
+      </a>
+      <a href="{{ url_for('print', post_id=post['id']) }}">
+        <span class="btn btn-info">PRINT</span>
+      </a>
+      <span onclick="download();" class="btn btn-info">DOWNLOAD</span>
+      <a tabindex="0" class="btn btn-info popover-dismiss" role="button" data-toggle="popover" data-trigger="focus" title="Информация" data-content="Дата создания: {{ post['created'] }}">
+        INFO
+      </a>
+    </div>
+    <hr>
+    <textarea name="content" placeholder="Code" class="form-control" id="myTextarea">{{ request.form['content'] or post['content'] }}</textarea>
+<style>
+    textarea{min-height: 700px;}
+</style>
+<script src="../static/js/codemirror.js"></script>
+<script src="../static/js/javascript.js"></script>
+<script>
+    var editor = CodeMirror.fromTextArea(myTextarea, {
+      mode: 'javascript',
+      lineNumbers: true
+    });
+</script>
+<div id="disqus_thread" style="background: white;"></div>
+<script>
+(function() {
+var d = document, s = d.createElement('script');
+s.src = 'https://http-codebinpy-herokuapp-com.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<script>
+const download = () => {
+    let text = myTextarea.value;
+    let blob = new Blob([text], {
+      type: 'text/plain'
+    })
+    let anchor = document.createElement('a')
+    anchor.download = "{{ post['title'] }}"
+    anchor.href = window.URL.createObjectURL(blob)
+    anchor.target = '_blank'
+    anchor.style.display = 'none'
+    document.body.appendChild(anchor)
+    anchor.click()
+    document.body.removeChild(anchor)
+}
+</script>
+<style>.btn {cursor: pointer;}</style>       
+{% endblock %}

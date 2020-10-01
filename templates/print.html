@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/static/css/codemirror.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<body onload="window.print()">
+    {% block content %}
+    <textarea id="myTextarea">{{ request.form['content'] or post['content'] }}</textarea>                   
+    {% endblock %}
+<script src="/static/js/codemirror.js"></script>
+<script src="/static/js/javascript.js"></script>
+<script>
+    var editor = CodeMirror.fromTextArea(myTextarea, {
+      mode: 'javascript',
+      lineNumbers: true
+    });
+</script>
+<style>
+*{margin: 0;padding: 0;}
+.CodeMirror {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background: white;
+}
+</style>
+</body>

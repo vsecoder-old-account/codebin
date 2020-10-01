@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Приветствуем в CodeBin {% endblock %}</h1>
+    <hr>
+    {% for post in posts %}
+        <a href="{{ url_for('post', post_id=post['id']) }}">
+            <h2 style="color: #78b3ff;">{{ post['title'] }}</h2>
+        </a>
+        <span class="badge badge-primary">{{ post['created'] }}</span>
+        <hr>
+    {% endfor %}
+    <a class="nav-link" href="{{url_for('create')}}"><div class="new">+</div></a>
+    <a class="nav-link" href="/docs"><div class="doc"><img src="/static/1.png"></div></a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" style="margin-left: -9999999px;" id="newuser">
+        new
+      </button>
+      <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Впервые?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Прочитай <a href="/docs">документацию</a> если здесь в первые!
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Прочитал</button>
+            </div>
+          </div>
+        </div>
+      </div>
+<script>
+window.onload = function() {
+    let docs = localStorage.getItem('docs');
+    if (docs == null) {
+      newuser.click();
+      localStorage.setItem('docs', docs);
+      console.log('Ты тут впервые?');
+    } else {
+        console.log('Уже видились');
+    }
+}
+</script>
+{% endblock %}

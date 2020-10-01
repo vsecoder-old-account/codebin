@@ -1,0 +1,5 @@
+werkzeug
+flask
+gunicorn
+flask-restful
+requests
