@@ -1,4 +1,4 @@
-![CodeBin](https://github.com/htmlcssphpjs/codebin/blob/master/static/code.png)
+![CodeBin](https://github.com/htmlcssphpjs/codebin/blob/main/static/code.png)
 _________________________
 [CodeBin](https://codebinpy.herokuapp.com/):
 ========================
